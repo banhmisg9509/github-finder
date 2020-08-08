@@ -1,0 +1,9 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.action button {
+  margin: 0 5px;
+}
