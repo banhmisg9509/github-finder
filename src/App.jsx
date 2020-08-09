@@ -1,14 +1,23 @@
-import { NavBar, UserItem } from 'components';
-import React, { Component } from 'react';
+import { NavBar, Users } from 'components';
+import React, { Component, Fragment } from 'react';
 import './App.css';
+import { fetchUsers } from 'api';
 
 export default class App extends Component {
+  state = { users: [] };
+
+  async componentDidMount() {
+    const users = await fetchUsers();
+    this.setState({ users: users})
+  }
+
   render() {
+    const { users } = this.state;
     return (
-      <div>
+      <Fragment>
         <NavBar />
-        <UserItem />
-      </div>
+        <Users users={users} />
+      </Fragment>
     );
   }
 }
