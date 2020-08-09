@@ -4,19 +4,20 @@ import './App.css';
 import { fetchUsers } from 'api';
 
 export default class App extends Component {
-  state = { users: [] };
+  state = { users: [], loading: false };
 
   async componentDidMount() {
+    this.setState({ loading: true });
     const users = await fetchUsers();
-    this.setState({ users: users})
+    this.setState({ users: users, loading: false })
   }
 
   render() {
-    const { users } = this.state;
+    const { users, loading } = this.state;
     return (
       <Fragment>
         <NavBar />
-        <Users users={users} />
+        <Users loading={loading} users={users} />
       </Fragment>
     );
   }
