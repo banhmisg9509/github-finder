@@ -1,14 +1,34 @@
-const baseURL = 'https://api.github.com';
+import axios from 'axios';
 
-const fetchAPI = async (path) => {
-  const response = await fetch(baseURL + path);
-  const json = await response.json();
-  return json;
+const params = {
+  client_id: process.env.REACT_APP_GITHUB_CLIENT_ID,
+  client_secret: process.env.REACT_APP_GITHUB_CLIENT_SECRET
 }
 
+const axiosClient = axios.create({
+  baseURL: 'https://api.github.com'
+})
 
-export const fetchUsers = async () => {
-  const path = '/users';
-  const users = await fetchAPI(path);
+axiosClient.interceptors.response.use(response => {
+  if (response && response.data) {
+    return response.data;
+  }
+  return response;
+})
+
+const fetchUsers = async () => {
+  const users = await axiosClient.get('/users', {
+    params
+  });
   return users;
+}
+
+export const searchUsers = async (query) => {
+  if (!query) return await fetchUsers();
+
+  const response = await axiosClient.get('/search/users', {
+    params: { q: query, ...params }
+  });
+
+  return response.items;
 }

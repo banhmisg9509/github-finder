@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { UserItem, Spinner } from 'components';
 
 function Users({ users, loading }) {
+  if (loading) return <Spinner />;
+
   return (
-    <div className='container'>
-      <div className={loading ? '' : 'grid-4'}>
-        {loading ? (
-          <Spinner />
-        ) : (
-          users.map((user) => <UserItem key={user.id} user={user} />)
-        )}
-      </div>
+    <div className={loading ? '' : 'grid-3'}>
+      {users.map((user) => (
+        <UserItem key={user.id} user={user} />
+      ))}
     </div>
   );
 }
