@@ -23,7 +23,7 @@ const fetchUsers = async () => {
   return users;
 }
 
-export const searchUsers = async (query) => {
+export const findUsers = async (query) => {
   if (!query) return await fetchUsers();
 
   const response = await axiosClient.get('/search/users', {
