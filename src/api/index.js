@@ -32,3 +32,8 @@ export const findUsers = async (query) => {
 
   return response.items;
 }
+
+export const getUser = async (username) => {
+  const response = await axiosClient.get('/users/' + username, { params });
+  return response;
+}

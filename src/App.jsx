@@ -1,16 +1,22 @@
-import { findUsers } from 'api';
-import { About, Alert, NavBar, Home } from 'components';
+import { findUsers, getUser } from 'api';
+import { About, Alert, Home, NavBar, User } from 'components';
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 export default class App extends Component {
-  state = { users: [], loading: false, alert: null };
+  state = { users: [], user: {}, loading: false, alert: null };
 
   searchUsers = async (searchText) => {
     this.setState({ loading: true });
     const users = await findUsers(searchText);
     this.setState({ users: users, loading: false });
+  };
+
+  getUser = async (username) => {
+    this.setState({ loading: true });
+    const user = await getUser(username);
+    this.setState({ user, loading: false });
   };
 
   clearUsers = () => this.setState({ users: [], loading: false });
@@ -24,7 +30,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { users, loading, alert } = this.state;
+    const { users, user, loading, alert } = this.state;
     return (
       <Router>
         <Fragment>
@@ -35,7 +41,7 @@ export default class App extends Component {
               <Route
                 exact
                 path='/'
-                component={() => (
+                render={() => (
                   <Home
                     users={users}
                     loading={loading}
@@ -46,6 +52,18 @@ export default class App extends Component {
                 )}
               />
               <Route exact path='/about' component={About} />
+              <Route
+                exact
+                path='/user/:login'
+                render={(props) => (
+                  <User
+                    {...props}
+                    getUser={this.getUser}
+                    user={user}
+                    loading={loading}
+                  />
+                )}
+              />
             </Switch>
           </div>
         </Fragment>
