@@ -1,10 +1,17 @@
-export { default as Alert } from './layout/Alert/Alert'
-export { default as NavBar } from './layout/NavBar/NavBar'
-export { default as Spinner } from './layout/Spinner/Spinner'
-export { default as About } from './pages/About/About'
-export { default as Home } from './pages/Home/Home'
-export { default as Search } from './users/Search/Search'
-export { default as User } from './users/User/User'
-export { default as UserItem } from './users/UserItem/UserItem'
-export { default as Users } from './users/Users/Users'
+import Alert from './layout/Alert/Alert'
+import NavBar from './layout/NavBar/NavBar'
+import Spinner from './layout/Spinner/Spinner'
+import About from './pages/About/About'
+import Home from './pages/Home/Home'
+import Search from './users/Search/Search'
+import User from './users/User/User'
+import UserItem from './users/UserItem/UserItem'
+import Users from './users/Users/Users'
+import Repos from './repos/Repos/Repos'
+import RepoItem from './repos/RepoItem/RepoItem'
 
+export {
+  Alert, NavBar, Spinner, About,
+  Home, Search, User, UserItem,
+  Users, Repos, RepoItem
+}

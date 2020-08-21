@@ -26,14 +26,23 @@ const fetchUsers = async () => {
 export const findUsers = async (query) => {
   if (!query) return await fetchUsers();
 
-  const response = await axiosClient.get('/search/users', {
+  const { items: users } = await axiosClient.get('/search/users', {
     params: { q: query, ...params }
   });
 
-  return response.items;
+  return users;
 }
 
 export const getUser = async (username) => {
-  const response = await axiosClient.get('/users/' + username, { params });
-  return response;
+  return await axiosClient.get('/users/' + username, { params });
 }
+
+export const getUserRepos = async (username, per_page = 5, sort = 'created:asc') => {
+  return await axiosClient.get(`/users/${username}/repos`, {
+    params: {
+      per_page,
+      sort,
+      ...params,
+    }
+  });
+};

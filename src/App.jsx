@@ -1,11 +1,11 @@
-import { findUsers, getUser } from 'api';
+import { findUsers, getUser, getUserRepos } from 'api';
 import { About, Alert, Home, NavBar, User } from 'components';
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 export default class App extends Component {
-  state = { users: [], user: {}, loading: false, alert: null };
+  state = { users: [], user: {}, repos: [], loading: false, alert: null };
 
   searchUsers = async (searchText) => {
     this.setState({ loading: true });
@@ -19,6 +19,12 @@ export default class App extends Component {
     this.setState({ user, loading: false });
   };
 
+  getUserRepos = async (username) => {
+    this.setState({ loading: true });
+    const repos = await getUserRepos(username);
+    this.setState({ repos, loading: false });
+  };
+
   clearUsers = () => this.setState({ users: [], loading: false });
 
   setAlert = (message, type) => {
@@ -30,7 +36,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { users, user, loading, alert } = this.state;
+    const { users, repos, user, loading, alert } = this.state;
     return (
       <Router>
         <Fragment>
@@ -59,7 +65,9 @@ export default class App extends Component {
                   <User
                     {...props}
                     getUser={this.getUser}
+                    getUserRepos={this.getUserRepos}
                     user={user}
+                    repos={repos}
                     loading={loading}
                   />
                 )}
