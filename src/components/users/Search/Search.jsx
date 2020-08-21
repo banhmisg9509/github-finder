@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 
-function Search({ searchUsers, setAlert, clearUsers, showClear }) {
+function Search({ searchUsers, toggleAlert, clearUsers, showClear }) {
   const [text, setText] = useState('');
 
   const handleChange = (e) => {
@@ -11,14 +11,12 @@ function Search({ searchUsers, setAlert, clearUsers, showClear }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (text === '') {
-      setAlert('Please enter something.', 'light');
+      toggleAlert('Please enter something.', 'light');
       return;
     }
 
-    if (searchUsers) {
-      searchUsers(text);
-      setText('');
-    }
+    searchUsers(text);
+    setText('');
   };
 
   return (
@@ -48,7 +46,7 @@ function Search({ searchUsers, setAlert, clearUsers, showClear }) {
 
 Search.propTypes = {
   searchUsers: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired,
+  toggleAlert: PropTypes.func.isRequired,
   clearUsers: PropTypes.func.isRequired,
   showClear: PropTypes.bool.isRequired,
 };

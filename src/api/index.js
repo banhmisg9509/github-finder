@@ -16,15 +16,11 @@ axiosClient.interceptors.response.use(response => {
   return response;
 })
 
-const fetchUsers = async () => {
-  const users = await axiosClient.get('/users', {
+
+export const fetchUsers = async (query) => {
+  if (!query) return await axiosClient.get('/users', {
     params
   });
-  return users;
-}
-
-export const findUsers = async (query) => {
-  if (!query) return await fetchUsers();
 
   const { items: users } = await axiosClient.get('/search/users', {
     params: { q: query, ...params }
@@ -33,11 +29,11 @@ export const findUsers = async (query) => {
   return users;
 }
 
-export const getUser = async (username) => {
+export const fetchUser = async (username) => {
   return await axiosClient.get('/users/' + username, { params });
 }
 
-export const getUserRepos = async (username, per_page = 5, sort = 'created:asc') => {
+export const fetchUserRepos = async (username, per_page = 5, sort = 'created:asc') => {
   return await axiosClient.get(`/users/${username}/repos`, {
     params: {
       per_page,
