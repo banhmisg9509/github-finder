@@ -1,8 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { UserItem, Spinner } from 'components';
+import { Spinner, UserItem } from 'components';
+import { GithubContext } from 'context';
+import React, { useContext } from 'react';
 
-function Users({ users, loading }) {
+function Users() {
+  const { loading, users } = useContext(GithubContext);
+
   if (loading) return <Spinner />;
 
   return (
@@ -13,15 +15,5 @@ function Users({ users, loading }) {
     </div>
   );
 }
-
-Users.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.object).isRequired,
-  loading: PropTypes.bool.isRequired,
-};
-
-Users.defaultProps = {
-  users: [],
-  loading: false,
-};
 
 export default Users;

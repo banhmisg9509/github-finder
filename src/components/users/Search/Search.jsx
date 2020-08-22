@@ -1,17 +1,19 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import { GithubContext, AlertContext } from 'context';
+import React, { Fragment, useContext, useState } from 'react';
 
-function Search({ searchUsers, toggleAlert, clearUsers, showClear }) {
+function Search() {
+  const { searchUsers, clearUsers, users } = useContext(GithubContext);
+  const { alert, setAlert } = useContext(AlertContext);
   const [text, setText] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setText(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     if (text === '') {
-      toggleAlert('Please enter something.', 'light');
+      !alert && setAlert('Please enter something.', 'light');
       return;
     }
 
@@ -35,7 +37,7 @@ function Search({ searchUsers, toggleAlert, clearUsers, showClear }) {
           className='btn btn-dark btn-block'
         />
       </form>
-      {showClear && (
+      {users.length > 0 && (
         <button className='btn btn-light btn-block' onClick={clearUsers}>
           Clear
         </button>
@@ -43,12 +45,5 @@ function Search({ searchUsers, toggleAlert, clearUsers, showClear }) {
     </Fragment>
   );
 }
-
-Search.propTypes = {
-  searchUsers: PropTypes.func.isRequired,
-  toggleAlert: PropTypes.func.isRequired,
-  clearUsers: PropTypes.func.isRequired,
-  showClear: PropTypes.bool.isRequired,
-};
 
 export default Search;

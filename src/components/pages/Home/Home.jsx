@@ -1,16 +1,11 @@
 import React, { Fragment } from 'react';
 import { Search, Users } from 'components';
 
-function Home({ searchUsers, clearUsers, toggleAlert, users, loading }) {
+function Home() {
   return (
     <Fragment>
-      <Search
-        searchUsers={searchUsers}
-        clearUsers={clearUsers}
-        toggleAlert={toggleAlert}
-        showClear={users.length > 0}
-      />
-      <Users loading={loading} users={users} />
+      <Search />
+      <Users />
     </Fragment>
   );
 }
