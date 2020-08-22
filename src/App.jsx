@@ -1,4 +1,4 @@
-import { About, Alert, Home, NavBar, User } from 'components';
+import { About, Alert, Home, NavBar, User, NotFound } from 'components';
 import { AlertState, GithubState } from 'context';
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -17,6 +17,7 @@ function App() {
                 <Route exact path='/' component={Home} />
                 <Route exact path='/about' component={About} />
                 <Route exact path='/user/:login' component={User} />
+                <Route component={NotFound} />
               </Switch>
             </div>
           </Fragment>
