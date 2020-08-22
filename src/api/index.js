@@ -1,8 +1,15 @@
 import axios from 'axios';
 
+let githubClientId = process.env.GITHUB_CLIENT_ID;
+let gihubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+if (process.env.NODE_ENV !== 'production') {
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  gihubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+}
+
 const params = {
-  client_id: process.env.REACT_APP_GITHUB_CLIENT_ID,
-  client_secret: process.env.REACT_APP_GITHUB_CLIENT_SECRET
+  client_id: githubClientId,
+  client_secret: gihubClientSecret
 }
 
 const axiosClient = axios.create({
